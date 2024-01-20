@@ -56,7 +56,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public void dropUsersTable() {
         //DROP TABLE your_table_name;
-        String drop= "DROP TABLE "+TABLE_NAME;
+        String drop= "DROP TABLE IF EXISTS "+TABLE_NAME;
 
         Statement statement = null;
         try {

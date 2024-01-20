@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
     //private UserDao userDao =new UserDaoJDBCImpl(); ;
 
     UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
-
+    //UserDao userDao = new UserDaoJDBCImpl();
 
     // Сеттер для установки UserDao
 //    public void setUserDao(UserDao userDao) {
@@ -25,10 +25,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public void dropUsersTable() {
-userDaoJDBC.dropUsersTable();
+        userDaoJDBC.dropUsersTable();
     }
 
-    public void saveUser(String name, String lastName, byte age)  {
+    public void saveUser(String name, String lastName, byte age) {
         userDaoJDBC.saveUser(name, lastName, age);
     }
 
