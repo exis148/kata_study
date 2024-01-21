@@ -1,27 +1,14 @@
 package jm.task.core.jdbc.dao;
-
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 public class UserDaoJDBCImpl extends Util implements UserDao {
     private final String TABLE_NAME = "users2";
-    //    private Connection dbconnection;
-//
-//
-//    public UserDaoJDBCImpl() {
-//
-//    }
-//
-//    // Сеттер для установки соединения
-//    public void setConnection(Connection connection) {
-//        this.dbconnection = connection;
-//    }
+
     Connection dbconnection;
 
     {
@@ -55,8 +42,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     }
 
     public void dropUsersTable() {
-        //DROP TABLE your_table_name;
-        String drop= "DROP TABLE IF EXISTS "+TABLE_NAME;
+
+        String drop = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
         Statement statement = null;
         try {
@@ -68,10 +55,9 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         }
 
 
-
     }
 
-    public void saveUser(String name, String lastName, byte age)  {
+    public void saveUser(String name, String lastName, byte age) {
 
         String add = "INSERT INTO " + TABLE_NAME + "(name, lastname, age) VALUES (?, ?, ?)";
 
@@ -88,11 +74,9 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         }
 
 
-
     }
 
     public void removeUserById(long id) {
-        //DELETE FROM your_table_name WHERE id = your_user_id;
         String delete = "DELETE FROM " + TABLE_NAME + " WHERE ID = " + id;
 
 
@@ -124,14 +108,14 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
                         String lastName = resultSet.getString("lastName");
                         byte age = resultSet.getByte("age");
 
-                        // Создаем объект User и добавляем его в список
+
                         User user = new User();
                         user.setId(id);
                         user.setName(name);
                         user.setLastName(lastName);
                         user.setAge(age);
                         userList.add(user);
-                        //userList.add(new User(id, name, lastName, age));
+
                     }
                 }
             }
@@ -146,7 +130,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     }
 
     public void cleanUsersTable() {
-String clean = "DELETE FROM " + TABLE_NAME;
+        String clean = "DELETE FROM " + TABLE_NAME;
 
         Statement statement = null;
         try {

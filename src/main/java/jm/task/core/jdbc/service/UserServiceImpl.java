@@ -1,24 +1,16 @@
 package jm.task.core.jdbc.service;
 
-import jm.task.core.jdbc.dao.UserDao;
+
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    //private UserDao userDao =new UserDaoJDBCImpl(); ;
 
     UserDaoJDBCImpl userDaoJDBC = new UserDaoJDBCImpl();
-    //UserDao userDao = new UserDaoJDBCImpl();
 
-    // Сеттер для установки UserDao
-//    public void setUserDao(UserDao userDao) {
-//        this.userDao = userDao;
-//    }
 
     public void createUsersTable() {
         userDaoJDBC.createUsersTable();
@@ -32,7 +24,7 @@ public class UserServiceImpl implements UserService {
         userDaoJDBC.saveUser(name, lastName, age);
     }
 
-    public void removeUserById(long id)  {
+    public void removeUserById(long id) {
         userDaoJDBC.removeUserById(id);
     }
 
