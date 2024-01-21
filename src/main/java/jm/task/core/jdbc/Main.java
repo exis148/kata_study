@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
         // реализуйте алгоритм здесь
         //Util util = new Util();
         //Connection connection = util.getConnection();
