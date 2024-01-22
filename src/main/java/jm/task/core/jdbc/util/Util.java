@@ -5,33 +5,41 @@ import java.sql.*;
 public class Util {
 
 
-    public final String TABLE_NAME = "users2";
-    public final String id = "id";
-    public final String name = "name";
-    public final String lastName = "lastName";
-    public final String age = "age";
+    public final static String TABLE_NAME = "users2";
+    public final static String id = "id";
+    public final  static String name = "name";
+    public final static String lastName = "lastName";
+    public final static String age = "age";
 
-    private final String dbhost = "localhost";
-    private final String dbport = "3306";
-    private final String dbuser = "root";
-    private final String dbpass = "root12345";
-    private final String dbname = "my_shema";
+    private final static String DB_HOST = "localhost";
+    private final static String DB_PORT = "3306";
+    private final static String DB_USER = "root";
+    private final static String DB_PASS = "root12345";
+    private final static String DB_NAME = "my_shema";
 
-    Connection dbconnection;
+   public static Connection dbconnection;
 
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
-        String connectionString = "jdbc:mysql://" + dbhost + ":" + dbport + "/" + dbname;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        dbconnection = DriverManager.getConnection(connectionString, dbuser, dbpass);
-        if (dbconnection != null && !dbconnection.isClosed()) {
-            System.out.println("Успешное подключение к базе данных.");
-        } else {
-            System.out.println("Не удалось подключиться к базе данных.");
+    public static Connection getConnection() {
+        try {
+            String connectionString = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            dbconnection = DriverManager.getConnection(connectionString, DB_USER, DB_PASS);
+            if (dbconnection != null && !dbconnection.isClosed()) {
+                System.out.println("Успешное подключение к базе данных.");
+            } else {
+                System.out.println("Не удалось подключиться к базе данных.");
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("Драйвер базы данных не найден.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Ошибка при подключении к базе данных.");
+            e.printStackTrace();
         }
-
 
         return dbconnection;
     }
+
 
 }
 
