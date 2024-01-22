@@ -22,24 +22,18 @@ public class UserServiceImpl implements UserService {
         userDaoJDBC.dropUsersTable();
     }
 
-    public void saveUser(String name, String lastName, byte age)  {
+    public void saveUser(String name, String lastName, byte age) {
 
 
-        try {
-            userDaoJDBC.saveUser(name, lastName, age);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        userDaoJDBC.saveUser(name, lastName, age);
 
 
     }
 
     public void removeUserById(long id) {
-        try {
-            userDaoJDBC.removeUserById(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        userDaoJDBC.removeUserById(id);
+
     }
 
     public List<User> getAllUsers() {
