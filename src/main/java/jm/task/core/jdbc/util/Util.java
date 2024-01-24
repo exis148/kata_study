@@ -6,11 +6,6 @@ public class Util {
 
 
     public final static String TABLE_NAME = "users2";
-    public final static String id = "id";
-    public final  static String name = "name";
-    public final static String lastName = "lastName";
-    public final static String age = "age";
-
     private final static String DB_HOST = "localhost";
     private final static String DB_PORT = "3306";
     private final static String DB_USER = "root";
