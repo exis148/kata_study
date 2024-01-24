@@ -1,22 +1,32 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+
+
 import java.sql.*;
+
 
 public class Util {
 
 
-    public final static String TABLE_NAME = "users2";
-    private final static String DB_HOST = "localhost";
-    private final static String DB_PORT = "3306";
-    private final static String DB_USER = "root";
-    private final static String DB_PASS = "root12345";
-    private final static String DB_NAME = "my_shema";
+    public static final String TABLE_NAME = "users2";
+    private static final String DB_HOST = "localhost";
+    private static final String DB_PORT = "3306";
+    private static final String DB_USER = "root";
+    private static final String DB_PASS = "root12345";
+    private static final String DB_NAME = "my_shema";
+    private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private final static String url = "jdbc:mysql://localhost:3306/my_shema";
 
-   public static Connection dbconnection;
+    Connection dbconnection;
 
-    public static Connection getConnection() {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        String connectionString = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
+
         try {
-            String connectionString = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
             Class.forName("com.mysql.cj.jdbc.Driver");
             dbconnection = DriverManager.getConnection(connectionString, DB_USER, DB_PASS);
             if (dbconnection != null && !dbconnection.isClosed()) {
@@ -24,17 +34,39 @@ public class Util {
             } else {
                 System.out.println("Не удалось подключиться к базе данных.");
             }
-        } catch (ClassNotFoundException e) {
-            System.out.println("Драйвер базы данных не найден.");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Ошибка при подключении к базе данных.");
-            e.printStackTrace();
-        }
 
-        return dbconnection;
+            return dbconnection;
+        } catch (ClassNotFoundException | SQLException e) {
+
+            e.printStackTrace();
+            throw e;
+        }
     }
 
+    public static final SessionFactory sessionFactory = buildSessionFactory();
+
+    public  static SessionFactory buildSessionFactory() {
+        try {
+            Configuration configuration = new Configuration()
+                    .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
+                    .setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver")
+                    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/my_shema?serverTimezone=UTC")
+                    .setProperty("hibernate.connection.username", "root")
+                    .setProperty("hibernate.connection.password", "root12345")
+                    .setProperty("hibernate.show_sql", "true")
+                    .setProperty("hibernate.hbm2ddl.auto", "update")
+                    .setProperty("hibernate.current_session_context_class", "thread")
+                    .addAnnotatedClass(User.class);
+
+            return configuration.buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+    public static void factoryClose(){
+        sessionFactory.close();
+    }
 
 }
 

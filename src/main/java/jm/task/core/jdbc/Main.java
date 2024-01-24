@@ -1,17 +1,27 @@
 package jm.task.core.jdbc;
 
 
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.util.Util;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import java.lang.module.Configuration;
+
+import static jm.task.core.jdbc.util.Util.*;
+import static jm.task.core.jdbc.util.Util.factoryClose;
 
 
 public class Main {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         User user1 = new User("John", "Laughington", (byte) 30);
         User user2 = new User("Alice", "Jokerson", (byte) 25);
         User user3 = new User("Michael", "Gigglesworth", (byte) 35);
         User user4 = new User("Olivia", "Smirkley", (byte) 28);
-        User user5 = new User("Daniel", "Chucklerson", (byte) 32);
+        User user5 = new User("Mary", "Zakharova", (byte) 88);
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
         userService.saveUser(user1.getName(), user1.getLastName(), user1.getAge());
@@ -22,6 +32,9 @@ public class Main {
         System.out.println(userService.getAllUsers());
         userService.cleanUsersTable();
         userService.dropUsersTable();
+        factoryClose();
+
+
 
     }
 
