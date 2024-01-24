@@ -13,20 +13,21 @@ public class Util {
 
 
     public static final String TABLE_NAME = "users2";
+
+
     private static final String DB_HOST = "localhost";
     private static final String DB_PORT = "3306";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "root12345";
     private static final String DB_NAME = "my_shema";
-    private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final static String url = "jdbc:mysql://localhost:3306/my_shema";
 
-    Connection dbconnection;
 
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
-        String connectionString = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
+    public static Connection dbconnection;
 
+
+    public static Connection getConnection() {
         try {
+            String connectionString = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
             Class.forName("com.mysql.cj.jdbc.Driver");
             dbconnection = DriverManager.getConnection(connectionString, DB_USER, DB_PASS);
             if (dbconnection != null && !dbconnection.isClosed()) {
@@ -34,13 +35,15 @@ public class Util {
             } else {
                 System.out.println("Не удалось подключиться к базе данных.");
             }
-
-            return dbconnection;
-        } catch (ClassNotFoundException | SQLException e) {
-
+        } catch (ClassNotFoundException e) {
+            System.out.println("Драйвер базы данных не найден.");
             e.printStackTrace();
-            throw e;
+        } catch (SQLException e) {
+            System.out.println("Ошибка при подключении к базе данных.");
+            e.printStackTrace();
         }
+
+        return dbconnection;
     }
 
     public static final SessionFactory sessionFactory = buildSessionFactory();
