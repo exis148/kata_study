@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-
 import java.sql.*;
 
 
@@ -13,8 +12,6 @@ public class Util {
 
 
     public static final String TABLE_NAME = "users2";
-
-
     private static final String DB_HOST = "localhost";
     private static final String DB_PORT = "3306";
     private static final String DB_USER = "root";
@@ -48,14 +45,14 @@ public class Util {
 
     public static final SessionFactory sessionFactory = buildSessionFactory();
 
-    public  static SessionFactory buildSessionFactory() {
+    public static SessionFactory buildSessionFactory() {
         try {
             Configuration configuration = new Configuration()
                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
                     .setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver")
-                    .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/my_shema?serverTimezone=UTC")
-                    .setProperty("hibernate.connection.username", "root")
-                    .setProperty("hibernate.connection.password", "root12345")
+                    .setProperty("hibernate.connection.url", "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?serverTimezone=UTC")
+                    .setProperty("hibernate.connection.username", DB_USER)
+                    .setProperty("hibernate.connection.password", DB_PASS)
                     .setProperty("hibernate.show_sql", "true")
                     .setProperty("hibernate.hbm2ddl.auto", "update")
                     .setProperty("hibernate.current_session_context_class", "thread")
@@ -67,7 +64,8 @@ public class Util {
             throw new ExceptionInInitializerError(ex);
         }
     }
-    public static void factoryClose(){
+
+    public static void factoryClose() {
         sessionFactory.close();
     }
 
