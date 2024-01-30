@@ -43,7 +43,7 @@ public class Util {
         return dbconnection;
     }
 
-    public static final SessionFactory sessionFactory = buildSessionFactory();
+    public static SessionFactory sessionFactory;
 
     public static SessionFactory buildSessionFactory() {
         try {

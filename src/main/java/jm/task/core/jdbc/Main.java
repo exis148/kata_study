@@ -10,6 +10,7 @@ import static jm.task.core.jdbc.util.Util.factoryClose;
 
 public class Main {
     public static void main(String[] args) {
+
         User user1 = new User("John", "Laughington", (byte) 30);
         User user2 = new User("Alice", "Jokerson", (byte) 25);
         User user3 = new User("Michael", "Gigglesworth", (byte) 35);
