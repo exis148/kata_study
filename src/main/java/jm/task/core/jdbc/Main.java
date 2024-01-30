@@ -2,7 +2,10 @@ package jm.task.core.jdbc;
 
 
 
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
 
@@ -15,7 +18,7 @@ public class Main {
         User user3 = new User("Michael", "Gigglesworth", (byte) 35);
         User user4 = new User("Olivia", "Smirkley", (byte) 28);
         User user5 = new User("Mary", "Zakharova", (byte) 88);
-        UserServiceImpl userService = new UserServiceImpl();
+        UserService userService = new UserServiceImpl(new UserDaoHibernateImpl());
         userService.createUsersTable();
         userService.saveUser(user1.getName(), user1.getLastName(), user1.getAge());
         userService.saveUser(user2.getName(), user2.getLastName(), user2.getAge());
