@@ -65,9 +65,9 @@ public class Util {
         }
     }
 
-    public static void factoryClose() {
-        sessionFactory.close();
-    }
-
+//    public static void factoryClose() {
+//        sessionFactory.close();
+//    }
+//
 }
 
